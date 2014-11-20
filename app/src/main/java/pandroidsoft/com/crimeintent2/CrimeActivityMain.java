@@ -1,40 +1,32 @@
 package pandroidsoft.com.crimeintent2;
 
-import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v4.app.FragmentManager;
 
 
-public class CrimeActivityMain extends Activity {
+public class CrimeActivityMain extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crime_activity_main);
-    }
+        setContentView(R.layout.activity_crime_main);
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_crime_activity_main, menu);
-        return true;
-    }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment  fragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        if(fragment == null){
+            fragment = new CrimeFragment();
+            fragmentManager.beginTransaction()
+                    .add(R.id.fragmentContainer, fragment)
+                    .commit();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
         }
-
-        return super.onOptionsItemSelected(item);
     }
+
+
+
 }
