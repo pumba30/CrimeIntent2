@@ -1,8 +1,10 @@
 package pandroidsoft.com.crimeintent2;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -27,6 +29,7 @@ public class CrimeFragment extends Fragment {
     private Button mDateButton;
     private CheckBox mSolvedCheckBox;
     public static final String EXTRA_CRIME_ID ="pandroidsoft.com.extra_crime_id";
+    private static final String DIALOG_DATE = "date";
 
 
 
@@ -66,8 +69,16 @@ public class CrimeFragment extends Fragment {
 
         mDateButton = (Button)view.findViewById(R.id.crime_date);
         mDateButton.setText(android.text.format.DateFormat.format("EEEEE, mm, yyyy",  mCrime.getDate()).toString());
-        mDateButton.setEnabled(false);
+        //mDateButton.setEnabled(false);
+        mDateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fm = getActivity().getSupportFragmentManager();
+                DatePickeFragment dialog = new DatePickeFragment();
+                dialog.show(fm, DIALOG_DATE);
 
+            }
+        });
 
         mSolvedCheckBox = (CheckBox) view.findViewById(R.id.crime_solved);
         mSolvedCheckBox.setChecked(mCrime.isSolved());
