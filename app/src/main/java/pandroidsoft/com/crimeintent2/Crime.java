@@ -20,7 +20,10 @@ public class Crime {
     }
 
 
-
+    @Override
+    public String toString() {
+        return mTitle;
+    }
 
 
     public UUID getId() {

@@ -5,28 +5,17 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 
+import java.util.UUID;
 
-public class CrimeActivityMain extends FragmentActivity {
+
+public class CrimeActivityMain extends SingleFragmentActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_crime_main);
+    protected Fragment createFragment() {
 
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment  fragment = fragmentManager.findFragmentById(R.id.fragmentContainer);
-
-        if(fragment == null){
-            fragment = new CrimeFragment();
-            fragmentManager.beginTransaction()
-                    .add(R.id.fragmentContainer, fragment)
-                    .commit();
-
-
-        }
+        UUID crimeId = (UUID)getIntent()
+                .getSerializableExtra(CrimeFragment.EXTRA_CRIME_ID);
+        return CrimeFragment.newInstance(crimeId);
     }
-
-
-
 }
